@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<project name="UserManagement" default="info">
+
+
+    <!--property declaration step  -->
+
+    <property name="appname" value="UserManagement"></property>
+    <property file="app.properties"></property>
+    <property name="src" value="${basedir}/src/"></property>
+    <property name="srcdest" value="${basedir}/WEB-INF/classes"></property>
+    <property name="lib" value="${basedir}/WEB-INF/lib"></property>
+
+
+
+<!--this one trial product-->
+    <target name="info">
+        <echo>Hello World - Welcome to Apache Ant! ${appname}</echo>
+        <echo>Application is running on port ${port}</echo>
+        <echo>Application is running on port ${basedir}</echo>
+    </target>
+
+
+
+
+    <target name="compile">
+
+
+    </target>
+
+
+
+
+    <!--add the source folder that will entry all java file recursivly -->
+    <fileset dir="${src}" casesensitive="yes">
+        <include name="**/*.java"/>
+        <exclude name="**/*Stub*"/>
+    </fileset>
+
+
+    <!--here define jar file folder path and class file to be generate name   -->
+    <path id="jarref">
+        <pathelement path="${srcdest}"/>
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+
+
+
+
+    <!-- deploy the product -->
+    <target name="deploy">
+      <!--make class dir-->
+        <mkdir dir="${srcdest}"></mkdir>
+
+        <javac debug="on"  destdir="${srcdest}" source="1.8" target="1.8">
+        <src path="${src}"></src>
+            <classpath refid ="jarref"></classpath>
+        </javac>
+
+
+    </target>
+
+
+    <target name="de">
+
+    <javac srcdir="${src}"
+           destdir="${srcdest}"
+           fork="yes"
+           executable="/opt/java/jdk1.1/bin/javac"
+           compiler="javac1.1"
+    />
+    </target>
+
+
+    <!--clean the class files   -->
+    <target name="clean">
+
+
+        <delete>
+
+            <fileset dir="${srcdest}">
+                <include name="**/*.class"></include>
+            </fileset>
+
+        </delete>
+
+    </target>
+
+</project>
